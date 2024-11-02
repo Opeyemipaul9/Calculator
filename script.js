@@ -2,6 +2,19 @@ const calculatorDisplay = document.querySelector('h1');
 const inputBtns = document.querySelectorAll('button');
 const clearBtn  = document.getElementById('clear-btn');
 
+// calculate first and second values depending on operators
+const calculate = {
+    '/' : (firstNumber, secondNumber)=> firstNumber / secondNumber,
+
+    '*' : (firstNumber, secondNumber)=> firstNumber * secondNumber,
+
+    '+' : (firstNumber, secondNumber)=> firstNumber + secondNumber,
+
+    '-' : (firstNumber, secondNumber)=> firstNumber - secondNumber,
+
+    '=' : (firstNumber, secondNumber)=>  secondNumber,
+}
+
 let firstValue = 0;
 let operatorValue = '';
 let awaitingNextValue = false;
@@ -26,25 +39,13 @@ function addDecimal(){
      return;
     // if no decimal , add one
     if(!calculatorDisplay.textContent.includes('.'))[
-        calculatorDisplay.textContent = `${calculatorDisplay.textContent}.`
+       calculatorDisplay.textContent = `${calculatorDisplay.textContent}.`
     ]
-}
-// calculate first and second values depending on operators
-const calculate = {
-    '/' : (firstNumber, secondNumber)=> firstNumber / secondNumber,
-
-    '*' : (firstNumber, secondNumber)=> firstNumber * secondNumber,
-
-    '+' : (firstNumber, secondNumber)=> firstNumber + secondNumber,
-
-    '-' : (firstNumber, secondNumber)=> firstNumber - secondNumber,
-
-    '=' : (firstNumber, secondNumber)=>  secondNumber,
 }
 
 function useOperator(operator){
     const currentValue = Number(calculatorDisplay.textContent);
-
+   
     // prevent multiple operators
     if(operatorValue && awaitingNextValue) { 
      operatorValue = operator
@@ -65,6 +66,15 @@ function useOperator(operator){
     operatorValue = operator;   
 }
 
+// Reset Display
+function resetAll(){
+ firstValue = 0;
+ operatorValue = '';
+ awaitingNextValue = false;
+ calculatorDisplay.textContent = '0';
+}
+
+
 // Add Event listeners for numbers , operatord , decimal buttons
 inputBtns.forEach((button) =>{
     if(button.classList.length === 0){
@@ -77,14 +87,6 @@ inputBtns.forEach((button) =>{
     }
 
 });
-
-// Reset Display
-function resetAll(){
- firstValue = 0;
- operatorValue = '';
- awaitingNextValue = false;
- calculatorDisplay.textContent = '0';
-}
 
 // Event listener to reset Buttons
 clearBtn.addEventListener('click' , resetAll);
