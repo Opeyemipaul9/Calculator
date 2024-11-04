@@ -51,12 +51,14 @@ function useOperator(operator){
      operatorValue = operator
      return;
     }
-   
+
     // Assign firstValue if no Value
     if(!firstValue){
      firstValue = currentValue;
     }else{
         const calculation = calculate[operatorValue](firstValue, currentValue)
+        console.log(firstValue,  currentValue);
+        console.log('calculation', calculation);
         calculatorDisplay.textContent = calculation;
         firstValue = calculation;
     }
